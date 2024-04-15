@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Dashboard from "@/pages/dashboard";
 import SideMenu from "@/app/components/SideMenu";
 import scss from "./Home.module.scss";
+import Habits from './dashboard/habits';
 
 export default function Home() {
 
@@ -17,7 +18,6 @@ export default function Home() {
             <main className={scss.main}>
                 {
                     <>
-                        <SideMenu />
                         <Dashboard />
                     </>
                 }
