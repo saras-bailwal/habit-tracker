@@ -18,22 +18,26 @@ import IconButton from "@mui/material/IconButton";
 import { useAppSelector } from '@/app/store/features/store';
 import scss from "@/app/page.module.css";
 import { Switch } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
-export type HabitsProps = {
-  onClickEditOpen: (selectedObj: any) => void;
-};
 
-const Habits = (props: HabitsProps) => {
-  const { onClickEditOpen } = props;
+const Habits = () => {
 
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
+  let statusChangedName = "";
   const [open, setOpen] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
+  const [isActive, setIsActive] = React.useState(false);
 
   const [habitName, setHabitName] = React.useState("");
   const [habitId, setHabitId] = React.useState();
 
-  const [habitStatusActive, setHabitStatusActive] = React.useState(false);
+  const [snackOpen, setSnackOpen] = React.useState(false);
+
+  const handleSnackClose = (event?: React.SyntheticEvent | Event) => {
+    setSnackOpen(false);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,12 +58,14 @@ const Habits = (props: HabitsProps) => {
 
   const handleChangeStatus = (currentHabit: any) => {
     // console.log("ab yahan ho kya rha hai", event.target)
-    console.log("currentHabit", !currentHabit.active)
+    setIsActive(!currentHabit.active);
+    statusChangedName = currentHabit.name;
     dispatch(changeHabitStatus({
       id: currentHabit.id,
       name: currentHabit.name,
       active: !currentHabit.active
     }))
+    setSnackOpen(true);
   }
 
   const habitsList = useAppSelector(state=>state.habits.habits)
@@ -67,7 +73,7 @@ const Habits = (props: HabitsProps) => {
 
   return (
     <div className={scss.main}>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         {/* { habitsCount === 4 ?  "Max 4 habits can be added, please delete a habit to add new": "Create Habit" }
      */}
         Add Habit
@@ -110,14 +116,36 @@ const Habits = (props: HabitsProps) => {
           } }>{isEdit ? 'Edit' : 'Add'}</Button>
         </DialogActions>
       </Dialog>
-
-
-<div>
-
+        <Snackbar open={snackOpen} autoHideDuration={2000}  onClose={handleSnackClose}
+          anchorOrigin={{vertical: 'top', horizontal: 'right' }}
+          >
+            {isActive ? 
+            <Alert
+            onClose={handleSnackClose}
+            severity="success"
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+             {`${statusChangedName}`} This is a success Alert inside a Snackbar!
+          </Alert> :
+          <Alert
+          onClose={handleSnackClose}
+          severity="warning"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+           {`${statusChangedName}`} This is a success Alert inside a Snackbar!
+        </Alert>}
+        
+      </Snackbar>
+      <div>
       {habitsList.map((habit: any, index: any) => {
             return (
               <div key={habit.id} style={{display: "flex", justifyContent: "space-between"}}>
-                  <><div style={{ padding: '10px' }}>{index + 1}</div><div style={{ padding: '10px' }}>{habit.name}</div><div style={{ padding: '10px' }}>
+                  <>
+                  <div style={{ padding: '20px', width:'20%' }}>{index + 1}</div>
+                  <div style={{ padding: '20px', width:'40%' }}>{habit.name}</div>
+                  <div style={{ padding: '20px', width:'10%' }}>
                   <FormControl component="fieldset" variant="standard">
                     <FormGroup>
                       <FormControlLabel
@@ -125,7 +153,14 @@ const Habits = (props: HabitsProps) => {
                         label="" />
                     </FormGroup>
                   </FormControl>
-                </div><IconButton onClick={() => { handleClickEditOpen(habit); } }><EditOutlinedIcon /></IconButton><IconButton onClick={() => dispatch(deleteHabit({ id: habit.id }))}><DeleteIcon /></IconButton></>
+                </div>
+                <div style={{ padding: '20px', width:'10%' }}>
+                  <IconButton onClick={() => { handleClickEditOpen(habit); } }><EditOutlinedIcon /></IconButton>
+                </div>
+                <div style={{ padding: '20px', width:'10%' }}>
+                  <IconButton onClick={() => dispatch(deleteHabit({ id: habit.id }))}><DeleteIcon /></IconButton>
+                </div>
+                </>
               </div>
           )})}
     </div>
