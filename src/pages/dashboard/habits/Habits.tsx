@@ -69,7 +69,6 @@ const Habits = () => {
   }
 
   const habitsList = useAppSelector(state=>state.habits.habits)
-  const habitsCount = useAppSelector(state=>state.habits.habits.length)
 
   return (
     <div className={scss.main}>

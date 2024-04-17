@@ -45,7 +45,7 @@ const Header = (props: HeaderProps) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-            <img src='/Aktana.png' height={30} width={100}/>
+            {/* <img src='/Aktana.png' height={30} width={100}/> */}
           <Typography
             variant="h6"
             noWrap

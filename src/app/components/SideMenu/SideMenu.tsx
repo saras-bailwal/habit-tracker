@@ -49,14 +49,16 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 });
 
-const menuRouteList = ["habits","dailyHabits"];
+const menuRouteList = ["habits","dailyHabits", "heatmap"];
 const menuListTranslations = [
   "Habits",
   "Daily Habits",
+  "HeatMap"
 ];
 const menuListIcons = [
   <HourglassEmptyIcon key={1} />,
   <AvTimerIcon key={2} />,
+  <EqualizerIcon key={3} />,
 ];
 
 const SideMenu = () => {

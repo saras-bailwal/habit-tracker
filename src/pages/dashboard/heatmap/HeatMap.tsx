@@ -9,9 +9,8 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import { useAppSelector } from '@/app/store/features/store';
 import { dailyHabitData } from "@/app/mockHabitDailyData";
-import "../Home.module.scss";
 
-const Dashboard = () => {
+const HeatMap = () => {
     const [year, setYear] = useState("2024");
     const [startDate, setStartDate] = useState(new Date("2024-01-01"));
 
@@ -109,4 +108,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default HeatMap;
