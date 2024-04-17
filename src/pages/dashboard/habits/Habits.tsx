@@ -125,7 +125,7 @@ const Habits = () => {
             variant="filled"
             sx={{ width: '100%' }}
           >
-             {`${statusChangedName}`} This is a success Alert inside a Snackbar!
+            Habit Activated!
           </Alert> :
           <Alert
           onClose={handleSnackClose}
@@ -133,7 +133,7 @@ const Habits = () => {
           variant="filled"
           sx={{ width: '100%' }}
         >
-           {`${statusChangedName}`} This is a success Alert inside a Snackbar!
+          Habit De-activated!
         </Alert>}
         
       </Snackbar>
