@@ -11,7 +11,7 @@ import SideMenu from "@/app/components/SideMenu";
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 const App = ({
-    Component, pageProps: {session, ...pageProps}
+    Component, pageProps: {...pageProps}
 }: AppProps) => {
         const [mode, setMode] = React.useState<'light' | 'dark'>('dark');
         const colorMode = React.useMemo(
@@ -28,14 +28,14 @@ const App = ({
             createTheme({
                 ...darkTheme,
             }),
-          [mode],
+          [],
         );
         const lightThemeChosen = React.useMemo(
             () =>
                 createTheme({
                     ...lightTheme,
                 }),
-            [mode],
+            [],
         ); 
     return (
         <Provider store={store}>
